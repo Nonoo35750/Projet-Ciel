@@ -1,0 +1,13 @@
+#docker-compose up --build
+services:
+  cryptoGestion:
+    image: cryptoimage:latest
+    container_name: gestionCryptoNG
+    volumes:
+      - .:/app
+    working_dir: /app
+    ports:
+      - "8000:8000"
+    command:  ["python3", "main_api.py"]
+
+#python main_api.py"
