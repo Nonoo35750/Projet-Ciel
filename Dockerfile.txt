@@ -25,3 +25,4 @@ RUN pip install --no-cache-dir pycryptodome \
 
 # Commande par défaut (modifiable avec docker-compose)
 #CMD ["python", "main.py"]
+#cp
