@@ -14,8 +14,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-  test:
+      - name: build image
+        run: |
+           echo "Build image..." 
+           docker build -t imagecrypto .
+           cp .
+           docker compose up -d
+  
+  
+  test :
+         
     needs: build
     runs-on: ubuntu-latest
     steps:
