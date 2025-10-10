@@ -20,8 +20,6 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
 
   test:
     needs: build
@@ -35,9 +33,6 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
-
 
   deploy:
     needs: test
@@ -47,10 +42,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: npm install
 
       - name: Deploy to production
         run: |
           echo "Déploiement en cours..."
-          # Remplace ceci par ton script réel de déploiement
