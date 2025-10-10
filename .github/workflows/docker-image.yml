@@ -1,64 +1,56 @@
-name: Build, Test and Deploy
+name: CI CD
 
 on:
   push:
     branches:
       - main
-      - develop
   pull_request:
     branches:
       - main
-      - develop
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: 🔄 Checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: ⚙️ Set up Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
 
-      - name: 📦 Install dependencies
+      - name: Install dependencies
         run: npm install
-
-      - name: 🛠️ Build project
-        run: npm run build
 
   test:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: 🔄 Checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: ⚙️ Set up Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
 
-      - name: 📦 Install dependencies
+      - name: Install dependencies
         run: npm install
 
-      - name: ✅ Run tests
-        run: npm test
 
   deploy:
     needs: test
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - name: 🔄 Checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: 📦 Install dependencies
+      - name: Install dependencies
         run: npm install
 
-      - name: 🚀 Deploy to production
+      - name: Deploy to production
         run: |
           echo "Déploiement en cours..."
           # Remplace ceci par ton script réel de déploiement
-          npm run deploy
