@@ -2,10 +2,10 @@ name: Python CI/CD
 
 on:
   push:
-    branches: [ cryptoHttp ]
+    branches: [ cryptoGestion ]
   pull_request:
-    branches: [ cryptoHttp ]
-  workflow_dispatch:   # lancement manuel
+    branches: [ cryptoGestion ]
+  workflow_dispatch:
 
 jobs:
  
