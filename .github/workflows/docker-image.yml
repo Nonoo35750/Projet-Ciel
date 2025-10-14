@@ -1,48 +1,30 @@
-name: CI CD
+name: Python CI/CD
 
 on:
   push:
-    branches:
-      - main
+    branches: [ cryptoHttp ]
   pull_request:
-    branches:
-      - main
+    branches: [ cryptoHttp ]
+  workflow_dispatch:   # lancement manuel
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+ 
+  lint:
+    runs-on: [self-hosted]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
         with:
-          node-version: '18'
+          name: binaries
+          path: |
+            docker-compose.yml
 
 
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-
-  deploy:
-    needs: test
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-
-      - name: Deploy to production
+      - name: Docker
         run: |
-          echo "Déploiement en cours..."
+          docker build -t cryptoimage .
+          docker compose up -d
